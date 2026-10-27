@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chacha Web Designer creates modern, mobile-friendly websites for small businesses, professionals, and entrepreneurs.">
+  <meta name="theme-color" content="#101827">
+  <title>Chacha Web Designer | Websites That Work for Your Business</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --surface: #111c2e;
+      --surface-2: #17243a;
+      --text: #f5f7fb;
+      --muted: #b5c0d2;
+      --accent: #55e6c1;
+      --accent-2: #8bb7ff;
+      --line: rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.24);
+      --radius: 22px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 86px; }
+    body {
+      margin: 0; background:
+        radial-gradient(circle at 85% 5%, rgba(85,230,193,.09), transparent 26rem),
+        radial-gradient(circle at 5% 35%, rgba(139,183,255,.08), transparent 24rem),
+        var(--bg);
+      color: var(--text); font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .skip-link { position: absolute; top: -60px; left: 12px; background: var(--accent); color: #08121b; padding: 10px 14px; border-radius: 8px; z-index: 1000; }
+    .skip-link:focus { top: 12px; }
+    .site-header {
+      position: sticky; top: 0; z-index: 100; backdrop-filter: blur(16px);
+      background: rgba(11,18,32,.86); border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.4px; }
+    .brand-mark {
+      width: 40px; height: 40px; display: grid; place-items: center; border-radius: 13px;
+      color: #07151a; background: linear-gradient(135deg, var(--accent), var(--accent-2)); font-weight: 900;
+      box-shadow: 0 8px 25px rgba(85,230,193,.18);
+    }
+    .brand span:last-child { font-size: 1rem; }
+    .nav-links { display: flex; align-items: center; gap: 25px; color: var(--muted); font-size: .94rem; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
+    .nav-cta { color: #07151a !important; background: var(--accent); padding: 10px 16px; border-radius: 999px; font-weight: 800; }
+    .menu-toggle { display: none; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); border-radius: 12px; width: 44px; height: 44px; cursor: pointer; }
+    .hero { padding: 82px 0 74px; }
+    .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 52px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.7px; font-size: .75rem; font-weight: 850; }
+    .eyebrow::before { content: ""; width: 23px; height: 2px; background: currentColor; }
+    h1 { font-size: clamp(2.55rem, 5.6vw, 4.65rem); line-height: 1.06; letter-spacing: -2.7px; margin: 20px 0; }
+    h1 .highlight { color: var(--accent); }
+    .hero-copy { color: var(--muted); max-width: 580px; font-size: 1.08rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid transparent; border-radius: 12px; padding: 13px 19px; min-height: 48px; font-weight: 800; cursor: pointer; transition: transform .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #07151a; background: var(--accent); }
+    .btn-secondary { color: var(--text); border-color: var(--line); background: rgba(255,255,255,.035); }
+    .trust-row { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 30px; color: var(--muted); font-size: .88rem; }
+    .trust-row span::before { content: "✓"; color: var(--accent); font-weight: 900; margin-right: 7px; }
+    .hero-art { position: relative; min-height: 390px; display: grid; place-items: center; }
+    .browser {
+      width: min(100%, 460px); border: 1px solid rgba(255,255,255,.17); border-radius: 20px;
+      background: #101a2a; box-shadow: var(--shadow); overflow: hidden; transform: rotate(1.5deg);
+    }
+    .browser-top { height: 43px; border-bottom: 1px solid var(--line); display: flex; align-items: center; padding: 0 15px; gap: 6px; color: #8b98ab; font-size: .72rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #5d6c80; }
+    .browser-address { margin-left: 10px; border-radius: 7px; background: rgba(255,255,255,.05); padding: 5px 12px; flex: 1; }
+    .mock-page { padding: 24px; background: linear-gradient(140deg, #142c3b, #1d2544 60%, #142035); min-height: 300px; }
+    .mock-nav { display: flex; align-items: center; justify-content: space-between; font-size: .68rem; color: #c7d3e7; }
+    .mock-logo { font-weight: 900; color: white; }
+    .mock-pill { border-radius: 99px; padding: 5px 9px; background: var(--accent); color: #092027; font-weight: 800; }
+    .mock-heading { font-size: clamp(1.55rem, 3vw, 2.35rem); line-height: 1.05; font-weight: 850; letter-spacing: -1px; margin: 34px 0 10px; max-width: 270px; }
+    .mock-text { color: #bdcce0; font-size: .75rem; max-width: 245px; }
+    .mock-button { display: inline-block; background: var(--accent); color: #07151a; border-radius: 7px; padding: 8px 11px; font-size: .7rem; font-weight: 850; margin-top: 14px; }
+    .mock-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-top: 24px; }
+    .mock-card { height: 62px; border-radius: 9px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.09); padding: 9px; }
+    .mock-card i { display: block; width: 22px; height: 5px; border-radius: 9px; background: var(--accent-2); margin-bottom: 8px; }
+    .mock-card b { display: block; height: 4px; width: 80%; border-radius: 9px; background: rgba(255,255,255,.55); }
+    .float-tag { position: absolute; background: #f6fbff; color: #111c2e; padding: 12px 15px; border-radius: 13px; box-shadow: var(--shadow); font-size: .82rem; font-weight: 850; }
+    .float-tag small { display: block; color: #5d6c80; font-size: .68rem; font-weight: 600; }
+    .tag-one { top: 28px; right: -3px; }
+    .tag-two { bottom: 18px; left: -12px; }
+    section { padding: 78px 0; }
+    .section-head { max-width: 650px; margin-bottom: 35px; }
+    .section-head h2 { margin: 12px 0; font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.13; letter-spacing: -1.2px; }
+    .section-head p { color: var(--muted); margin: 0; }
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 17px; }
+    .service-card, .price-card, .project-card, .contact-card { border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.035); }
+    .service-card { padding: 25px; }
+    .service-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; background: rgba(85,230,193,.12); color: var(--accent); font-size: 1.4rem; }
+    .service-card h3 { margin: 18px 0 8px; font-size: 1.12rem; }
+    .service-card p { color: var(--muted); margin: 0; font-size: .94rem; }
+    .projects { background: rgba(255,255,255,.018); border-block: 1px solid rgba(255,255,255,.045); }
+    .project-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .project-card { overflow: hidden; }
+    .project-visual { min-height: 180px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+    .visual-hotel { background: linear-gradient(140deg, #d9b88c, #634a3d); color: #fff8ec; }
+    .visual-tech { background: linear-gradient(140deg, #133b4c, #20274e); color: #e8fbff; }
+    .visual-shop { background: linear-gradient(140deg, #e8d9cb, #8f9f84); color: #26382a; }
+    .visual-top { display: flex; justify-content: space-between; align-items: center; font-size: .72rem; font-weight: 850; }
+    .visual-top span:last-child { border: 1px solid currentColor; border-radius: 99px; padding: 4px 8px; }
+    .visual-title { font-size: 1.75rem; font-weight: 900; line-height: 1.03; max-width: 210px; letter-spacing: -1px; }
+    .visual-lines { display: flex; gap: 7px; }
+    .visual-lines i { display: block; height: 6px; width: 45px; background: currentColor; opacity: .55; border-radius: 9px; }
+    .project-info { padding: 20px; }
+    .project-info h3 { margin: 0 0 6px; }
+    .project-info p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .demo-note { color: var(--muted); font-size: .84rem; margin-top: 17px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 17px; align-items: stretch; }
+    .price-card { padding: 26px; display: flex; flex-direction: column; }
+    .price-card.featured { border-color: rgba(85,230,193,.7); background: linear-gradient(160deg, rgba(85,230,193,.10), rgba(255,255,255,.035)); box-shadow: 0 0 0 1px rgba(85,230,193,.08); }
+    .price-label { color: var(--accent); text-transform: uppercase; letter-spacing: 1.4px; font-size: .72rem; font-weight: 900; }
+    .price-card h3 { margin: 8px 0; font-size: 1.3rem; }
+    .price { font-size: 2rem; font-weight: 900; letter-spacing: -1px; margin: 8px 0 2px; }
+    .price small { font-size: .8rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+    .price-desc { color: var(--muted); font-size: .9rem; min-height: 48px; }
+    .feature-list { padding: 0; list-style: none; margin: 18px 0 24px; flex: 1; }
+    .feature-list li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.07); color: #dce4ef; font-size: .9rem; }
+    .feature-list li::before { content: "✓"; color: var(--accent); margin-right: 9px; font-weight: 900; }
+    .price-card .btn { width: 100%; }
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 17px; }
+    .process-step { border-top: 1px solid var(--line); padding-top: 18px; }
+    .step-num { color: var(--accent); font-weight: 900; font-size: .8rem; letter-spacing: 1px; }
+    .process-step h3 { margin: 9px 0 6px; font-size: 1.04rem; }
+    .process-step p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .contact-wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: start; }
+    .contact-copy p { color: var(--muted); }
+    .contact-detail { display: flex; gap: 12px; align-items: center; margin-top: 18px; color: var(--muted); }
+    .contact-detail b { color: var(--text); display: block; }
+    .contact-card { padding: 26px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    label { color: #dce4ef; font-size: .88rem; font-weight: 700; }
+    input, textarea, select { width: 100%; color: var(--text); background: rgba(0,0,0,.18); border: 1px solid var(--line); border-radius: 10px; padding: 12px 13px; outline: none; }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(85,230,193,.12); }
+    textarea { resize: vertical; min-height: 120px; }
+    select option { background: var(--surface); }
+    .form-help { color: var(--muted); font-size: .8rem; margin: 12px 0 18px; }
+    .form-message { margin-top: 12px; color: var(--accent); font-size: .9rem; min-height: 1.3em; }
+    .faq-list { max-width: 800px; }
+    details { border-bottom: 1px solid var(--line); padding: 17px 0; }
+    summary { cursor: pointer; font-weight: 800; }
+    details p { color: var(--muted); margin-bottom: 0; }
+    footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--muted); font-size: .86rem; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 17px; flex-wrap: wrap; }
+    .footer-links a:hover { color: var(--accent); }
+    .back-top { position: fixed; right: 18px; bottom: 18px; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 14px; border: 1px solid var(--line); background: var(--surface-2); color: var(--accent); font-size: 1.25rem; box-shadow: var(--shadow); opacity: 0; pointer-events: none; transform: translateY(8px); transition: .2s; z-index: 50; }
+    .back-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    :focus-visible { outline: 3px solid var(--accent-2); outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .hero-grid { gap: 25px; grid-template-columns: 1fr 1fr; }
+      .services-grid, .project-grid, .pricing-grid { grid-template-columns: repeat(2,1fr); }
+      .process-grid { grid-template-columns: repeat(2,1fr); row-gap: 28px; }
+      .tag-one { right: -5px; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 30px, var(--max)); }
+      .nav { min-height: 67px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links { display: none; position: absolute; top: 67px; left: 0; right: 0; background: #0f1929; padding: 16px 20px 20px; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 4px; }
+      .nav-links .nav-cta { text-align: center; margin-top: 8px; padding: 11px; }
+      .hero { padding: 55px 0 42px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      h1 { letter-spacing: -1.8px; font-size: clamp(2.45rem, 12vw, 3.6rem); }
+      .hero-art { min-height: 330px; margin: 4px 6px 0; }
+      .mock-page { min-height: 270px; padding: 19px; }
+      .tag-one { right: -3px; top: 9px; }
+      .tag-two { left: -5px; bottom: 2px; }
+      section { padding: 58px 0; }
+      .services-grid, .project-grid, .pricing-grid, .contact-wrap { grid-template-columns: 1fr; }
+      .service-card, .price-card { padding: 22px; }
+      .project-visual { min-height: 165px; }
+      .process-grid { gap: 25px 16px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Chacha Web Designer home">
+        <span class="brand-mark">C</span><span>Chacha Web Designer</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#work">Portfolio</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#process">How it works</a>
+        <a class="nav-cta" href="#contact">Get a website ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Web design for growing businesses</span>
+          <h1>Turn your ideas into a <span class="highlight">website that works.</span></h1>
+          <p class="hero-copy">I create clean, mobile-friendly websites that help small businesses look professional, explain their services, and make it easier for customers to get in touch.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contact">Let's build your website <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-secondary" href="#work">View sample work</a>
+          </div>
+          <div class="trust-row">
+            <span>Mobile-friendly layouts</span>
+            <span>Clear pricing</span>
+            <span>Personal support</span>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Illustration of a modern website preview">
+          <div class="browser">
+            <div class="browser-top"><i class="dot"></i><i class="dot"></i><i class="dot"></i><div class="browser-address">yourbusiness.example</div></div>
+            <div class="mock-page">
+              <div class="mock-nav"><span class="mock-logo">YOUR BRAND</span><span>About &nbsp; Services</span><span class="mock-pill">Contact</span></div>
+              <div class="mock-heading">A better first impression starts here.</div>
+              <div class="mock-text">A polished online home for your business, made for customers on every screen.</div>
+              <span class="mock-button">Explore services ↗</span>
+              <div class="mock-cards"><div class="mock-card"><i></i><b></b></div><div class="mock-card"><i></i><b></b></div><div class="mock-card"><i></i><b></b></div></div>
+            </div>
+          </div>
+          <div class="float-tag tag-one">✦ Responsive design<small>Phones, tablets & computers</small></div>
+          <div class="float-tag tag-two">↗ Built for your goals<small>Simple. Useful. Professional.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">What I can do</span>
+          <h2>Everything you need to get online.</h2>
+          <p>Practical website services for businesses and professionals who want a clear, trustworthy online presence.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card"><div class="service-icon">▣</div><h3>Business websites</h3><p>Introduce your business, showcase your services, and give customers a clear way to contact you.</p></article>
+          <article class="service-card"><div class="service-icon">✦</div><h3>Portfolio websites</h3><p>Present your skills, projects, and experience in a professional format that is easy to browse.</p></article>
+          <article class="service-card"><div class="service-icon">▤</div><h3>Landing pages</h3><p>Focused pages for a product, service, campaign, event, or special offer.</p></article>
+          <article class="service-card"><div class="service-icon">⌁</div><h3>Website refresh</h3><p>Improve an existing website's layout, readability, mobile experience, and calls to action.</p></article>
+          <article class="service-card"><div class="service-icon">◎</div><h3>Contact & WhatsApp setup</h3><p>Make it easy for visitors to ask questions and request a quote using contact links.</p></article>
+          <article class="service-card"><div class="service-icon">⚙</div><h3>Basic maintenance</h3><p>Content updates and small improvements, agreed in advance as a one-off job or ongoing service.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects" id="work">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Sample concepts</span>
+          <h2>A few directions your website could take.</h2>
+          <p>These are illustrative concept designs to show the types of websites I can create. They are not presented as completed client projects.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-visual visual-hotel"><div class="visual-top"><span>THE ACACIA</span><span>STAY WITH US</span></div><div class="visual-title">Find your place to unwind.</div><div class="visual-lines"><i></i><i></i><i></i></div></div>
+            <div class="project-info"><h3>Hotel & hospitality</h3><p>A welcoming design for rooms, amenities, location, and booking enquiries.</p></div>
+          </article>
+          <article class="project-card">
+            <div class="project-visual visual-tech"><div class="visual-top"><span>VOLTWORKS</span><span>GET A QUOTE</span></div><div class="visual-title">Powering ideas into reality.</div><div class="visual-lines"><i></i><i></i><i></i></div></div>
+            <div class="project-info"><h3>Technical services</h3><p>A professional layout for electrical, engineering, and repair services.</p></div>
+          </article>
+          <article class="project-card">
+            <div class="project-visual visual-shop"><div class="visual-top"><span>ROOT & LEAF</span><span>SHOP</span></div><div class="visual-title">Everyday goods, thoughtfully chosen.</div><div class="visual-lines"><i></i><i></i><i></i></div></div>
+            <div class="project-info"><h3>Small business & retail</h3><p>A clean starting point for products, business details, and customer enquiries.</p></div>
+          </article>
+        </div>
+        <p class="demo-note">Portfolio tip: replace these sample concepts with screenshots and links to real projects as you complete them.</p>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Simple starting prices</span>
+          <h2>Choose a package that fits.</h2>
+          <p>These are suggested introductory prices in Kenyan shillings. Confirm the scope with each customer before agreeing on a final quote.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <span class="price-label">Starter</span><h3>One-page website</h3>
+            <div class="price">KSh 3,000 <small>/ starting from</small></div>
+            <p class="price-desc">For a freelancer, service provider, or small business getting online.</p>
+            <ul class="feature-list"><li>One scrolling page</li><li>About and services sections</li><li>Contact / WhatsApp button</li><li>Mobile-friendly design</li><li>One round of revisions</li></ul>
+            <a class="btn btn-secondary package-link" data-package="Starter one-page website" href="#contact">Ask about Starter</a>
+          </article>
+          <article class="price-card featured">
+            <span class="price-label">Popular</span><h3>Business website</h3>
+            <div class="price">KSh 8,000 <small>/ starting from</small></div>
+            <p class="price-desc">For a business that needs several sections and a stronger online presence.</p>
+            <ul class="feature-list"><li>Up to five pages / sections as agreed</li><li>Custom look and feel</li><li>Services and contact details</li><li>Mobile-friendly design</li><li>Two rounds of revisions</li></ul>
+            <a class="btn btn-primary package-link" data-package="Business website" href="#contact">Ask about Business</a>
+          </article>
+          <article class="price-card">
+            <span class="price-label">Custom</span><h3>Advanced website</h3>
+            <div class="price">Let's discuss</div>
+            <p class="price-desc">For more complex needs that require extra planning or integrations.</p>
+            <ul class="feature-list"><li>Features scoped to your needs</li><li>Custom forms or integrations</li><li>Planning and milestones</li><li>Optional maintenance plan</li><li>Written project quote</li></ul>
+            <a class="btn btn-secondary package-link" data-package="Custom advanced website" href="#contact">Discuss a project</a>
+          </article>
+        </div>
+        <p class="demo-note">Domain names, hosting, paid tools, online payments, and third-party subscriptions are not included unless your written quote says otherwise. Advanced features may require additional setup.</p>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">How it works</span>
+          <h2>A clear process from idea to launch.</h2>
+          <p>You know what happens next, what is included, and what is needed from you.</p>
+        </div>
+        <div class="process-grid">
+          <div class="process-step"><span class="step-num">STEP 01</span><h3>Tell me your goal</h3><p>Share what your business does, who your customers are, and what you want the website to achieve.</p></div>
+          <div class="process-step"><span class="step-num">STEP 02</span><h3>Agree on the plan</h3><p>Confirm the pages, features, price, timeline, and who pays for domain or hosting.</p></div>
+          <div class="process-step"><span class="step-num">STEP 03</span><h3>Review the design</h3><p>Check the first version and send your agreed feedback before the final handover.</p></div>
+          <div class="process-step"><span class="step-num">STEP 04</span><h3>Publish & hand over</h3><p>Launch the website and receive the agreed files, access, and simple update guidance.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="projects">
+      <div class="container contact-wrap">
+        <div class="contact-copy">
+          <span class="eyebrow">Let's talk</span>
+          <h2 style="font-size:clamp(2rem,4vw,3rem);line-height:1.12;letter-spacing:-1.2px;margin:14px 0">Have a project in mind?</h2>
+          <p>Tell me a little about your business and the website you need. I'll use your details to prepare a message so we can discuss the project.</p>
+          <div class="contact-detail"><span class="service-icon">✉</span><div><b>Email</b><a id="emailDisplay" href="mailto:YOUR_EMAIL@example.com">YOUR_EMAIL@example.com</a></div></div>
+          <div class="contact-detail"><span class="service-icon">☏</span><div><b>WhatsApp</b><span>Message me to discuss your website</span></div></div>
+          <p class="demo-note">Before publishing, replace the placeholder email and WhatsApp number in the code with your real contact details.</p>
+        </div>
+        <div class="contact-card">
+          <form id="contactForm">
+            <div class="form-grid">
+              <div class="field"><label for="clientName">Your name</label><input id="clientName" name="clientName" autocomplete="name" required placeholder="e.g. Jane Wanjiku"></div>
+              <div class="field"><label for="clientEmail">Your email</label><input id="clientEmail" name="clientEmail" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+              <div class="field full"><label for="projectType">What do you need?</label><select id="projectType" name="projectType" required><option value="">Choose a service</option><option>One-page website</option><option>Business website</option><option>Portfolio website</option><option>Website redesign</option><option>Online shop</option><option>Other / not sure yet</option></select></div>
+              <div class="field full"><label for="projectMessage">Tell me about your project</label><textarea id="projectMessage" name="projectMessage" required placeholder="What does your business do? What should the website help you achieve?"></textarea></div>
+            </div>
+            <p class="form-help">This form opens WhatsApp with a prepared message. It does not store or send your details to a server.</p>
+            <button class="btn btn-primary" type="submit" style="width:100%">Send enquiry on WhatsApp ↗</button>
+            <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Questions</span><h2>Good to know before we start.</h2>
+        </div>
+        <div class="faq-list">
+          <details><summary>Will my website work on phones?</summary><p>Yes. This portfolio is designed to adapt to phones, tablets, and desktop screens. Each client website should also be tested on common screen sizes before launch.</p></details>
+          <details><summary>Does the price include a domain and hosting?</summary><p>Not by default. Domain registration and hosting can have separate costs. The final quote should state clearly what is included and who owns the accounts.</p></details>
+          <details><summary>Can you add online payments or bookings?</summary><p>These features may be possible, but they require extra planning and sometimes third-party services, secure configuration, or a backend. They are not included in the basic packages by default.</p></details>
+          <details><summary>How do I get started?</summary><p>Use the enquiry form to send your project details through WhatsApp. We'll need to agree on scope, cost, timeline, and content before work begins.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="brand" href="#home"><span class="brand-mark">C</span><span>Chacha Web Designer</span></a>
+      <span>© <span id="year"></span> Chacha Web Designer. Built with care.</span>
+      <div class="footer-links"><a href="#services">Services</a><a href="#work">Portfolio</a><a href="#contact">Contact</a></div>
+    </div>
+  </footer>
+  <a href="#home" class="back-top" id="backTop" aria-label="Back to top">↑</a>
+
+  <script>
+    /*
+      CUSTOMIZE THESE TWO VALUES BEFORE PUBLISHING:
+      1. whatsappNumber: country code + number, digits only. Kenya example: 2547XXXXXXXX
+         Do not include +, spaces, or dashes.
+      2. emailAddress: the email address customers should use.
+    */
+    const SITE_CONFIG = {
+      whatsappNumber: "2547XXXXXXXX",
+      emailAddress: "YOUR_EMAIL@example.com"
+    };
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const backTop = document.getElementById("backTop");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    window.addEventListener("scroll", () => {
+      backTop.classList.toggle("visible", window.scrollY > 450);
+    }, { passive: true });
+
+    document.querySelectorAll(".package-link").forEach(link => {
+      link.addEventListener("click", () => {
+        const chosenPackage = link.dataset.package;
+        const projectType = document.getElementById("projectType");
+        const matchingOption = Array.from(projectType.options).find(option =>
+          option.text.toLowerCase().includes(chosenPackage.split(" ")[0].toLowerCase())
+        );
+        if (matchingOption) projectType.value = matchingOption.value;
+        if (chosenPackage.toLowerCase().includes("custom")) projectType.value = "Other / not sure yet";
+      });
+    });
+
+    function isConfigured(value) {
+      return value && !value.includes("XXXXXXXX") && !value.includes("YOUR_EMAIL") && value.trim() !== "";
+    }
+
+    const emailDisplay = document.getElementById("emailDisplay");
+    if (isConfigured(SITE_CONFIG.emailAddress)) {
+      emailDisplay.textContent = SITE_CONFIG.emailAddress;
+      emailDisplay.href = "mailto:" + SITE_CONFIG.emailAddress;
+    } else {
+      emailDisplay.textContent = "Add your email in the HTML settings";
+      emailDisplay.href = "#contact";
+    }
+
+    document.getElementById("contactForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const status = document.getElementById("formMessage");
+      if (!isConfigured(SITE_CONFIG.whatsappNumber)) {
+        status.textContent = "Setup needed: add your WhatsApp number in SITE_CONFIG near the bottom of this HTML file, then try again.";
+        return;
+      }
+      const name = document.getElementById("clientName").value.trim();
+      const email = document.getElementById("clientEmail").value.trim();
+      const project = document.getElementById("projectType").value;
+      const message = document.getElementById("projectMessage").value.trim();
+      const text = [
+        "Hello Chacha Web Designer, I would like to enquire about a website.",
+        "",
+        "Name: " + name,
+        "Email: " + email,
+        "Service: " + project,
+        "Project details: " + message
+      ].join("\n");
+      const url = "https://wa.me/" + SITE_CONFIG.whatsappNumber + "?text=" + encodeURIComponent(text);
+      status.textContent = "Opening WhatsApp with your enquiry...";
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+  </script>
+</body>
+</html>
